@@ -1,0 +1,25 @@
+[project]
+name = "char-recognition"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Antarc", email = "none@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mpmath (>=1.3.0,<2.0.0)",
+    "ipykernel (>=6.29.5,<7.0.0)",
+    "torch (>=2.5.1,<3.0.0)",
+    "opencv-python (>=4.11.0.86,<5.0.0.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "matplotlib (>=3.10.0,<4.0.0)",
+    "torchvision (>=0.20.1,<0.21.0)",
+    "tqdm (>=4.67.1,<5.0.0)",
+    "black (>=24.10.0,<25.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
