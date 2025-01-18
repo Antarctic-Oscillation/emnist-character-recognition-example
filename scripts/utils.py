@@ -7,6 +7,7 @@ def save_checkpoint(
     epoch: int,
     model: nn.Module,
     optimizer: optim.Optimizer,
+    scheduler: optim.lr_scheduler._LRScheduler,
     train_losses: list,
     train_accuracies: list,
     val_losses: list,
@@ -24,6 +25,7 @@ def save_checkpoint(
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
+        'scheduler_state_dict': scheduler.state_dict(),  # Save scheduler state
         'train_losses': train_losses,
         'train_accuracies': train_accuracies,
         'val_losses': val_losses,
@@ -38,9 +40,11 @@ def save_checkpoint(
     if is_best:
         torch.save(checkpoint, os.path.join(checkpoint_dir, best_path))
 
+
 def load_checkpoint(
     model: nn.Module,
     optimizer: optim.Optimizer,
+    scheduler: optim.lr_scheduler._LRScheduler,
     checkpoint_dir: str = 'checkpoints',
     model_name: str = 'latest_model_checkpoint.pth'
 ) -> tuple:
@@ -51,9 +55,10 @@ def load_checkpoint(
         print("Loading latest checkpoint...")
         checkpoint = torch.load(path, weights_only=False)
         
-        # Load model and optimizer state
+        # Load model, optimizer, and scheduler state
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        scheduler.load_state_dict(checkpoint['scheduler_state_dict'])  # Restore scheduler
         
         # Return training state
         return (
